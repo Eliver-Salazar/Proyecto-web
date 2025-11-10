@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <section class="py-5" style="background-color:#fff8e1;">
+            <div class="container">
+                <div th:if="${ok}" class="alert alert-success" th:text="${ok}"></div>
+
+                <div class="card shadow">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">Editar perfil</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/perfil/editar}" method="post" th:object="${u}">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Nombre</label>
+                                    <input class="form-control" th:field="*{nombre}" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Correo</label>
+                                    <input class="form-control" th:field="*{email}" type="email" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Teléfono</label>
+                                    <input class="form-control" th:field="*{telefono}">
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a th:href="@{/perfil}" class="btn btn-outline-secondary">Cancelar</a>
+                                <button class="btn btn-warning text-white">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
+</html>

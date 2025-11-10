@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <section class="py-5" style="background:#fff8e1;">
+            <div class="container">
+                <h1 class="mb-4">Elige tu plan</h1>
+
+                <div class="row g-4" th:if="${#lists.size(planes) > 0}">
+                    <div class="col-md-4" th:each="p : ${planes}">
+                        <div class="card shadow h-100">
+                            <div class="card-header bg-warning">
+                                <h5 class="mb-0" th:text="${p.nombre}">Plan</h5>
+                            </div>
+                            <div class="card-body">
+                                <p th:text="${p.descripcionCorta}">Descripción</p>
+                                <h4 class="fw-bold" th:text="${#numbers.formatCurrency(p.precioMensual)}">₡0</h4>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a class="btn btn-warning"
+                                   th:href="@{|/membresias/seleccionar/${p.idPlan}|}"
+                                   sec:authorize="isAuthenticated()">
+                                    Seleccionar
+                                </a>
+                                <a class="btn btn-outline-secondary" th:href="@{/login}" sec:authorize="isAnonymous()">Inicia sesión para seleccionar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" th:if="${#lists.isEmpty(planes)}">
+                    No hay planes disponibles por ahora.
+                </div>
+
+                <div class="mt-3">
+                    <a class="btn btn-outline-dark" th:href="@{/}"><i class="fas fa-arrow-left me-1"></i> Volver</a>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org"> 
+    <head th:replace="~{layout/plantilla :: head}"></head> 
+    <body> 
+        <header th:replace="~{layout/plantilla :: header}"></header> 
+        <!-- título --> 
+        <section class="hero-about position-relative text-white"> 
+            <div class="overlay position-absolute w-100 h-100"></div> 
+            <div class="position-relative text-center d-flex flex-column justify-content-center align-items-center h-100"> 
+                <h1 class="display-5 fw-bold">Horarios de Clases</h1> 
+            </div> 
+        </section> 
+        <!-- Sección de horarios y actividades --> 
+        <section class="py-5" style="background-color: #fff8e1;"> 
+            <div class="container"> 
+                <div class="row"> 
+                    <!-- Horarios --> 
+                    <div class="col-md-4"> 
+                        <div class="bg-warning text-dark p-4 rounded shadow"> 
+                            <h4 class="fw-bold">HORARIOS</h4> 
+                            <p><strong>Lunes a Viernes:</strong></p> 
+                            <ul> 
+                                <li>9:00AM - 11:00AM (Zumba)</li> 
+                                <li>11:00AM - 1:00PM (Crossfit)</li> 
+                                <li>1:00PM - 3:00PM (Boxeo)</li> 
+                                <li>5:00PM - 7:00PM (Boxeo)</li> 
+                            </ul> 
+                            <p><strong>Sábados y Domingos:</strong></p> 
+                            <ul> 
+                                <li>9:00AM - 11:00AM (Zumba)</li> 
+                                <li>11:00AM - 1:00PM (Crossfit)</li> 
+                            </ul> 
+                        </div> 
+                    </div> 
+                    <!-- Actividades --> 
+                    <div class="col-md-8"> 
+                        <div class="row g-4"> 
+                            <div class="col-md-6"> 
+                                <div class="card shadow bg-warning text-dark"> 
+                                    <img src="https://tse2.mm.bing.net/th/id/OIP.oFeplKNw8Xuz4GnCZnwExQHaEu?rs=1&pid=ImgDetMain&o=7&rm=3" 
+                                         class="card-img-top" alt="Crossfit"> 
+                                    <div class="card-body text-center"> 
+                                        <h5 class="card-title">Crossfit</h5> 
+                                    </div> 
+                                </div> 
+                            </div> 
+                            <div class="col-md-6"> 
+                                <div class="card shadow bg-warning text-dark"> 
+                                    <img src="https://tse3.mm.bing.net/th/id/OIP.GvvPI4hmRPLu0mIFqYq2wAHaE7?rs=1&pid=ImgDetMain&o=7&rm=3" 
+                                         class="card-img-top" alt="Zumba"> 
+                                    <div class="card-body text-center"> 
+                                        <h5 class="card-title">Zumba</h5> 
+                                    </div> 
+                                </div> 
+                            </div> 
+                            <div class="col-md-6"> 
+                                <div class="card shadow bg-warning text-dark"> 
+                                    <img src="https://img.freepik.com/fotos-premium/boxeador-entrenando-saco-pesado_158187-19270.jpg" 
+                                         class="card-img-top" alt="Boxeo"> 
+                                    <div class="card-body text-center"> 
+                                        <h5 class="card-title">Boxeo</h5> 
+                                    </div> 
+                                </div> 
+                            </div> 
+                            <div class="col-md-6"> 
+                                <div class="card shadow bg-warning text-dark"> 
+                                    <img src="https://tse2.mm.bing.net/th/id/OIP.8WoiRItf8_heIKvyHzJU8gHaE8?rs=1&pid=ImgDetMain&o=7&rm=3" 
+                                         class="card-img-top" alt="Gimnasio"> 
+                                    <div class="card-body text-center"> 
+                                        <h5 class="card-title">Gimnasio</h5> 
+                                    </div> 
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+        </section> 
+        <footer th:replace="~{layout/plantilla :: footer}"></footer> 
+    </body> 
+</html>

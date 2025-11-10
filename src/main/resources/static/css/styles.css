@@ -1,0 +1,42 @@
+.card img {
+    height: 220px;
+    object-fit: cover;
+}
+.bg-warning {
+    font-size: 0.95rem;
+}
+
+.hero{
+  min-height: 480px;
+  background-image: url('https://www.vitafuerte.com/wp-content/uploads/2023/02/vitafuerte-fitness-center-cartago-1.webp');
+  background-size: cover;
+  background-position: center center;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin: 1.25rem auto;
+  width: 95%;
+}
+.hero .overlay{
+  background: rgba(0,0,0,.45);
+  top: 0; left: 0;
+  border-radius: inherit;
+}
+.hero .hero-content{
+  padding: 3rem 1.5rem;
+}
+@media (min-width: 992px){
+  .hero{ min-height: 560px; }
+  .hero .hero-content{ padding: 4rem 2rem; }
+}
+
+.hero .hero-content{
+  align-items: flex-start; 
+  text-align: left;
+}
+
+
+.hero .overlay{
+  background: linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 40%, rgba(0,0,0,.15) 100%);
+}
+
+.hero{ background-position: center 35%; }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <!-- Hero fondo -->
+        <section class="hero-about position-relative text-white">
+            <div class="overlay position-absolute w-100 h-100"></div>
+            <div class="position-relative text-center d-flex flex-column justify-content-center align-items-center h-100">
+                <h1 class="display-5 fw-bold">Sobre Warrior Gym</h1>
+            </div>
+        </section>
+
+        <!-- Descripcion -->
+        <section class="py-5" style="background-color: #fff8e1;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="fw-bold text-warning mb-4">Tu transformación comienza aquí</h2>
+                        <p class="lead mb-4">
+                            Warrior Gym es un moderno y bien equipado gimnasio que ofrece una amplia variedad de máquinas de entrenamiento.
+                            Pesas libres y clases dirigidas para todos los niveles. Con un ambiente motivador y entrenadores certificados.
+                        </p>
+                        <p>
+                            Es el lugar ideal para mejorar tu condición física, ganar fuerza y alcanzar tus objetivos de salud en un entorno seguro y profesional.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="ratio ratio-16x9 mx-auto" style="max-width: 900px;">
+                        <iframe
+                            src="https://www.youtube.com/embed/ELmmSkoT5Ag"
+                            title="Planet Gym | Monserrat, Alajuela | Costa Rica"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
+</html>

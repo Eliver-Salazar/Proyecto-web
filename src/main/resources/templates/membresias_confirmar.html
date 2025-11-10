@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <section class="py-5" style="background:#fff8e1;">
+            <div class="container">
+                <div class="card shadow">
+                    <div class="card-header bg-warning">
+                        <h4 class="mb-0">Confirmar membresía</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Estás por activar el plan <strong th:text="${plan.nombre}">Plan</strong>
+                            por <strong th:text="${#numbers.formatCurrency(plan.precioMensual)}">₡0</strong>.
+                        </p>
+                        <p th:text="${plan.descripcionCorta}">Descripción</p>
+
+                        <form method="post" th:action="@{/membresias/aplicar}">
+                            <input type="hidden" name="planId" th:value="${plan.idPlan}"/>
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-outline-secondary" th:href="@{/membresias}">
+                                    <i class="fas fa-arrow-left me-1"></i> Volver
+                                </a>
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="fas fa-check me-1"></i> Confirmar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="alert alert-info mt-3">
+                    Al confirmar, se enviará un <strong>comprobante</strong> al correo de tu cuenta y el plan quedará visible en tu perfil.
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
+</html>

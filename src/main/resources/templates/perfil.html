@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <!-- HERO -->
+        <section class="hero-about position-relative text-white">
+            <div class="overlay position-absolute w-100 h-100"></div>
+            <div class="position-relative text-center d-flex flex-column justify-content-center align-items-center h-100">
+                <h1 class="display-5 fw-bold">Perfil</h1>
+                <p class="lead mb-0" sec:authorize="isAuthenticated()">
+                    Sesión activa como
+                    <strong th:text="${usuarioActual != null
+                            ? (usuarioActual.nombre + ' ' + usuarioActual.apellidos)
+                            : #authentication?.name}">usuario</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- CONTENIDO -->
+        <section class="py-5" style="background-color:#fff8e1;">
+            <div class="container">
+
+                <!-- Mensajes -->
+                <div th:if="${mensaje}" class="alert alert-success d-flex align-items-center mb-4">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span th:text="${mensaje}">Operación exitosa</span>
+                </div>
+                <div th:if="${error}" class="alert alert-danger d-flex align-items-center mb-4">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <span th:text="${error}">Ocurrió un problema</span>
+                </div>
+
+                <!-- Aviso sin autenticación -->
+                <div class="alert alert-warning d-flex align-items-center" sec:authorize="!isAuthenticated()">
+                    <i class="fas fa-lock me-2"></i>
+                    Debes iniciar sesión para ver tu perfil.
+                    <a class="btn btn-sm btn-outline-dark ms-3" th:href="@{/login}">Iniciar sesión</a>
+                </div>
+
+                <div class="row g-4" sec:authorize="isAuthenticated()">
+                    <!-- Col izquierda: resumen -->
+                    <div class="col-lg-4">
+                        <div class="card shadow h-100">
+                            <div class="card-body text-center">
+                                <!-- Avatar desde BD con fallback -->
+                                <img th:if="${usuarioActual != null and !#strings.isEmpty(usuarioActual.rutaImagen)}"
+                                     th:src="${usuarioActual.rutaImagen}"
+                                     alt="avatar" class="rounded-circle mb-3"
+                                     style="width:110px;height:110px;object-fit:cover;">
+                                    <img th:if="${usuarioActual == null or #strings.isEmpty(usuarioActual.rutaImagen)}"
+                                         th:src="@{/img/default-avatar.png}"
+                                         alt="avatar" class="rounded-circle mb-3"
+                                         style="width:110px;height:110px;object-fit:cover;">
+
+                                        <!-- Nombre completo -->
+                                        <h5 class="card-title mb-0"
+                                            th:text="${usuarioActual != null
+                                            ? (usuarioActual.nombre + ' ' + usuarioActual.apellidos)
+                                            : #authentication?.name}">Nombre Apellido</h5>
+                                        <small class="text-muted">Miembro activo</small>
+                                        </div>
+
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="fas fa-id-card me-2"></i>
+                                                <!-- Username -->
+                                                <span th:text="${usuarioActual != null and !#strings.isEmpty(usuarioActual.username)
+                                                      ? usuarioActual.username
+                                                      : #authentication?.name}">usuario</span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <i class="fas fa-envelope me-2"></i>
+                                                <!-- Email -->
+                                                <span th:text="${usuarioActual != null and !#strings.isEmpty(usuarioActual.email)
+                                                      ? usuarioActual.email
+                                                      : #authentication?.name}">correo@ejemplo.com</span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <i class="fas fa-phone me-2"></i>
+                                                <!-- Teléfono -->
+                                                <span th:text="${usuarioActual != null and !#strings.isEmpty(usuarioActual.telefono)
+                                                      ? usuarioActual.telefono
+                                                      : '—'}">0000-0000</span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <i class="fas fa-user-shield me-2"></i>
+                                                <!-- Roles -->
+                                                <span th:each="a : ${#authentication?.authorities}"
+                                                      th:text="${a?.authority}"
+                                                      class="badge bg-light text-dark me-1">USUARIO</span>
+                                            </li>
+                                        </ul>
+
+                                        <div class="card-body text-center">
+                                            <form th:action="@{/logout}" method="post" class="d-inline">
+                                                <button class="btn btn-danger fw-bold">
+                                                    <i class="fas fa-sign-out-alt me-1"></i> Salir
+                                                </button>
+                                            </form>
+                                        </div>
+                                        </div>
+                                        </div>
+
+                                        <!-- Col derecha: detalles -->
+                                        <div class="col-lg-8 d-flex flex-column gap-4">
+
+                                            <!-- Datos de la cuenta -->
+                                            <div class="card shadow">
+                                                <div class="card-header bg-warning text-dark">
+                                                    <h5 class="mb-0">Datos de la cuenta</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form>
+                                                        <div class="row g-3">
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Nombre</label>
+                                                                <input class="form-control" readonly
+                                                                       th:value="${usuarioActual != null
+                                                                       ? (usuarioActual.nombre + ' ' + usuarioActual.apellidos)
+                                                                       : #authentication?.name}">
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Usuario</label>
+                                                                <input class="form-control" readonly
+                                                                       th:value="${usuarioActual != null and !#strings.isEmpty(usuarioActual.username)
+                                                                       ? usuarioActual.username
+                                                                       : #authentication?.name}">
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Correo</label>
+                                                                <input class="form-control" readonly
+                                                                       th:value="${usuarioActual != null and !#strings.isEmpty(usuarioActual.email)
+                                                                       ? usuarioActual.email
+                                                                       : #authentication?.name}">
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Teléfono</label>
+                                                                <input class="form-control" readonly
+                                                                       th:value="${usuarioActual != null and !#strings.isEmpty(usuarioActual.telefono)
+                                                                       ? usuarioActual.telefono
+                                                                       : '—'}">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <!-- Membresía -->
+                                            <div class="card shadow">
+                                                <div class="card-header bg-warning text-dark">
+                                                    <h5 class="mb-0">Membresía</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-dumbbell me-2"></i>
+                                                        Plan actual:
+                                                        <strong th:text="${membresiaNombre != null and !#strings.isEmpty(membresiaNombre)
+                                                                ? membresiaNombre
+                                                                : 'Sin plan'}">Sin plan</strong>
+                                                    </p>
+                                                    <a th:href="@{/membresias}" class="btn btn-outline-warning">Mejorar plan</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        </div>
+
+                                        </div>
+                                        </section>
+
+                                        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+                                        </body>
+                                        </html>

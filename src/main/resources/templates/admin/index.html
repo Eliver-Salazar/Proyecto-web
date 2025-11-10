@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <main class="container py-4">
+            <h1 class="mb-3">Administración</h1>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-users-cog me-2"></i> Usuarios</h5>
+                            <p class="card-text">Alta/baja, roles, activaciones.</p>
+                            <a class="btn btn-primary disabled">Próximamente</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-dumbbell me-2"></i> Membresías</h5>
+                            <p class="card-text">Planes, precios y estados.</p>
+                            <a class="btn btn-primary disabled">Próximamente</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-chart-line me-2"></i> Reportes</h5>
+                            <p class="card-text">Actividad, ingresos y retención.</p>
+                            <a class="btn btn-primary disabled">Próximamente</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
+</html>

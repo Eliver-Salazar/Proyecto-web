@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <main class="container py-4">
+            <h1 class="mb-3">Panel del Personal</h1>
+
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-1"></i>
+                Bienvenido al panel. Aquí podrás gestionar asistencia, horarios, y más.
+            </div>
+
+            <!-- Contenido de ejemplo -->
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-calendar-check me-2"></i> Turnos</h5>
+                            <p class="card-text">Revisa y administra tus turnos.</p>
+                            <a class="btn btn-primary disabled">Próximamente</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-users me-2"></i> Socios</h5>
+                            <p class="card-text">Consulta socios asignados y sus progresos.</p>
+                            <a class="btn btn-primary disabled">Próximamente</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
+</html>

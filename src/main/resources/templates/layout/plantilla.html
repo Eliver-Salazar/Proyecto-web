@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:fragment="head">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Warrior Gym</title>
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
+        <style>
+            .navbar .dropdown-menu{
+                background-color:#212529;
+                border:0;
+                border-radius:.5rem;
+                padding:.5rem
+            }
+            .navbar .dropdown-item{
+                color:#f8f9fa;
+                border-radius:.375rem
+            }
+            .navbar .dropdown-item:hover,.navbar .dropdown-item:focus{
+                background-color:#ffc107;
+                color:#212529
+            }
+            .navbar .dropdown-divider{
+                border-top-color:rgba(255,255,255,.15)
+            }
+            .navbar .btn-outline-secondary{
+                border-color:#6c757d;
+                color:#343a40;
+                background-color:#fff
+            }
+            .navbar .btn-outline-secondary:hover{
+                background-color:#ffc107;
+                border-color:#ffc107;
+                color:#212529
+            }
+        </style>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    </head>
+
+    <header th:fragment="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.1XWKqs5zXvVdDG4uJ_NX0wHaHZ?rs=1&pid=ImgDetMain&o=7&rm=3"
+                         alt="Warrior Gym" height="80" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Experiencia Warrior
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/nosotros}">Sobre Nosotros</a></li>
+                                <li><a class="dropdown-item" th:href="@{/membresias}">Membresías</a></li>
+                                <li><a class="dropdown-item" th:href="@{/horarios}">Horarios</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ayuda
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/faq}">Preguntas frecuentes</a></li>
+                                <li><a class="dropdown-item" th:href="@{/contacto}">Contacto</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','PERSONAL')">
+                            <a class="nav-link" th:href="@{/personal/panel}">
+                                <i class="fas fa-clipboard-list me-1"></i> Panel Personal
+                            </a>
+                        </li>
+                        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                            <a class="nav-link" th:href="@{/admin}">
+                                <i class="fas fa-tools me-1"></i> Administración
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav align-items-center">
+                        <li class="nav-item me-2" sec:authorize="isAnonymous()">
+                            <a class="btn btn-warning text-white fw-bold shadow-sm" th:href="@{/registro}">Inscríbete</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="isAnonymous()">
+                            <a class="btn btn-outline-secondary fw-bold shadow-sm" th:href="@{/login}">
+                                <i class="fas fa-sign-in-alt me-1"></i> Iniciar sesión
+                            </a>
+                        </li>
+
+                        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                            <a class="btn btn-outline-secondary fw-bold shadow-sm dropdown-toggle d-flex align-items-center"
+                               href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img th:if="${usuarioActual != null and !#strings.isEmpty(usuarioActual.rutaImagen)}"
+                                     th:src="${usuarioActual.rutaImagen}"
+                                     alt="avatar" class="rounded-circle me-2" width="28" height="28"/>
+                                <img th:if="${usuarioActual == null or #strings.isEmpty(usuarioActual.rutaImagen)}"
+                                     th:src="@{/img/default-avatar.png}"
+                                     alt="avatar" class="rounded-circle me-2" width="28" height="28"/>
+                                <span th:if="${usuarioActual != null}"
+                                      th:text="${usuarioActual.nombre + ' ' + usuarioActual.apellidos}">Usuario</span>
+                                <span th:if="${usuarioActual == null}"
+                                      th:text="${#authentication.name}">Usuario</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                <li><h6 class="dropdown-header"><i class="fas fa-id-badge me-2"></i> Conectado</h6></li>
+                                <li><a class="dropdown-item" th:href="@{/perfil}"><i class="fas fa-user-circle me-2"></i> Mi perfil</a></li>
+                                <li><a class="dropdown-item" th:href="@{/perfil/editar}"><i class="fas fa-user-edit me-2"></i> Editar perfil</a></li>
+                                <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/admin}"><i class="fas fa-tools me-2"></i> Administración</a></li>
+                                <li sec:authorize="hasAnyRole('ADMIN','PERSONAL')"><a class="dropdown-item" th:href="@{/personal/panel}"><i class="fas fa-clipboard-list me-2"></i> Panel Personal</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form th:action="@{/logout}" method="post" class="px-3 py-1">
+                                        <button type="submit" class="btn btn-danger w-100">
+                                            <i class="fas fa-sign-out-alt me-2"></i> Salir
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+        <div class="container mt-3" th:if="${mensaje}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${mensaje}">Mensaje</span>
+                <a class="ms-2" th:href="@{/}">Volver al menú principal</a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        
+    </header>
+
+    <footer th:fragment="footer">
+        <div class="bg-dark text-white pt-5 pb-3">
+            <div class="container text-center">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.1XWKqs5zXvVdDG4uJ_NX0wHaHZ?rs=1&pid=ImgDetMain&o=7&rm=3"
+                     alt="Warrior Gym" height="50" class="mb-3" />
+                <div class="mb-3">
+                    <a href="https://instagram.com/warrior_gym" class="text-white mx-3" target="_blank" rel="noopener">
+                        <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                    <a href="https://wa.me/506XXXXXXXX" class="text-white mx-3" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp fa-2x"></i>
+                    </a>
+                </div>
+                <p class="mb-0">
+                    Línea de WhatsApp:
+                    <a class="text-white" href="tel:+506XXXXXXXX">+506 XXXXXXXX</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</html>
