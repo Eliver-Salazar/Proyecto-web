@@ -81,9 +81,9 @@ CREATE TABLE usuario_membresia (
 ) ENGINE=InnoDB;
 
 INSERT INTO usuario (username, nombre, apellidos, email, telefono, password, ruta_imagen, activo, codigo_confirmacion) VALUES
- ('gbonilla','Gabriel','Bonilla Zúñiga','gabozu97@gmail.com','84657047','123',NULL,1,NULL),
- ('julloa','Jasson','Ulloa Madriz','jasson2682@gmail.com','83525137','456',NULL,1,NULL),
- ('mjimenez','Miguel','Jimenez Valverde','miguel123@gmail.com','87519654','789',NULL,1,NULL);
+ ('esalazar','Eliver','Salazar Campos','eliverslzrcmps@gmail.com','61059844','123',NULL,1,NULL),
+ ('esalazar1','Eliver','Salazar Campos','eliverslzrcmps1@gmail.com','61069844','456',NULL,1,NULL),
+ ('esalazar2','Eliver','Salazar Campos','eliverslzrcmps2@gmail.com','61079844','789',NULL,1,NULL);
 
 INSERT INTO rol (nombre, id_usuario) VALUES
  ('ADMIN',1),('PERSONAL',1),('USUARIO',1),

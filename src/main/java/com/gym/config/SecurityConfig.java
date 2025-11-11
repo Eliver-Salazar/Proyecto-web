@@ -9,7 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -19,7 +19,9 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        // IMPORTANTE: para este proyecto usamos contraseñas en texto plano
+        // tal como están en la base de datos (123, 456, 789, etc.)
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
@@ -43,19 +45,15 @@ public class SecurityConfig {
             .requestMatchers(
                 "/", "/inscribete", "/nosotros", "/faq", "/contacto",
                 "/registro", "/confirmar", "/horarios", "/login",
-               
                 "/webjars/**", "/css/**", "/static/**", "/images/**", "/img/**", "/js/**"
             ).permitAll()
 
-        
             .requestMatchers(HttpMethod.GET, "/membresias").permitAll()
             .requestMatchers("/membresias/seleccionar/**", "/membresias/aplicar").authenticated()
 
-           
             .requestMatchers(HttpMethod.GET, "/forgot-password", "/forgot-password/done").permitAll()
             .requestMatchers(HttpMethod.POST, "/forgot-password").permitAll()
 
-          
             .requestMatchers("/admin/**").hasRole("ADMIN")
             .requestMatchers("/personal/**").hasAnyRole("ADMIN", "PERSONAL")
             .requestMatchers("/perfil/**").authenticated()
@@ -66,8 +64,8 @@ public class SecurityConfig {
         http.formLogin(login -> login
             .loginPage("/login").permitAll()
             .loginProcessingUrl("/login")
-            .usernameParameter("email")
-            .passwordParameter("password")
+            .usernameParameter("email")      // <-- se usa el campo "email" del formulario
+            .passwordParameter("password")   // <-- y el campo "password"
             .failureUrl("/login?error")
             .defaultSuccessUrl("/perfil", true)
         );

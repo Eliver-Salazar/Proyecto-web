@@ -40,3 +40,38 @@
 }
 
 .hero{ background-position: center 35%; }
+
+
+/* ===== Ajustes de color BullFit ===== */
+
+/* Reemplazar el amarillo por rojo corporativo */
+.bg-warning {
+    background-color: #EC142B !important;   /* rojo principal */
+    border-color: #EC142B !important;
+    color: #ffffff !important;
+}
+
+/* Botón principal de acciones (ej. Iniciar sesión) */
+.btn-warning {
+    background-color: #EC142B !important;
+    border-color: #EC142B !important;
+    color: #ffffff !important;
+}
+
+/* Hover un poco más oscuro */
+.btn-warning:hover {
+    background-color: #b50f22 !important;
+    border-color: #b50f22 !important;
+}
+
+/* Ajuste del botón outline-danger para que combine */
+.btn-outline-danger {
+    color: #EC142B;
+    border-color: #EC142B;
+}
+
+.btn-outline-danger:hover {
+    background-color: #EC142B;
+    border-color: #EC142B;
+    color: #ffffff;
+}
