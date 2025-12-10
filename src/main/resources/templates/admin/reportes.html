@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout/plantilla :: head}"></head>
+<body>
+<header th:replace="~{layout/plantilla :: header}"></header>
+
+<main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Reportes de membresías</h1>
+        <a th:href="@{/admin}" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left me-1"></i> Volver
+        </a>
+    </div>
+
+    <p class="text-muted">
+        Este reporte muestra el detalle de las membresías registradas por usuario,
+        incluyendo su estado actual y tipo de plan.
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Plan</th>
+                <th>Estado</th>
+                <th>Renovación automática</th>
+                <th>Fecha inicio</th>
+                <th>Fecha fin</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="m : ${membresias}">
+                <!-- 👇 AQUÍ VA m.id, NO m.idUsuPlan -->
+                <td th:text="${m.id}">1</td>
+
+                <!-- usuario.username (si el usuario existe) -->
+                <td th:text="${m.usuario != null ? m.usuario.username : 'N/D'}">
+                    esalazar
+                </td>
+
+                <!-- plan.nombre (si el plan existe) -->
+                <td th:text="${m.plan != null ? m.plan.nombre : 'N/D'}">
+                    Plan Premium
+                </td>
+
+                <!-- Enum EstadoMembresia -->
+                <td th:text="${m.estado}">ACTIVA</td>
+
+                <!-- Boolean renovacionAuto -->
+                <td>
+                    <span th:if="${m.renovacionAuto}" class="badge bg-success">Sí</span>
+                    <span th:unless="${m.renovacionAuto}" class="badge bg-secondary">No</span>
+                </td>
+
+                <!-- LocalDateTime fechaInicio / fechaFin -->
+                <td th:text="${m.fechaInicio != null ? #temporals.format(m.fechaInicio, 'yyyy-MM-dd HH:mm') : '-'}">
+                    2025-01-01 10:00
+                </td>
+                <td th:text="${m.fechaFin != null ? #temporals.format(m.fechaFin, 'yyyy-MM-dd HH:mm') : '-'}">
+                    -
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="text-muted mt-2">
+    </p>
+</main>
+
+<footer th:replace="~{layout/plantilla :: footer}"></footer>
+</body>
+</html>
